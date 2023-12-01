@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Cadastro de Produtos</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../src/cadastro-produto.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="box">
+            <h1>Cadastro de Produtos</h1>
+
+            <img src="../logo.png" height="100">
+
+            <p>Por favor, prencha os campos abaixo para cadastrar o produto.</p>
+
+            <form>
+
+                <div class="row">
+                    <div class="left">
+                        <label for="txtNomeProd">Nome do produto:</label>
+                        <input type="text" class="inputField" name="" id="txtNomeProd">
+                    </div>
+
+                    <div class="right">
+                        <label for="txtCodProd">Código do produto:</label>
+                        <input type="text" class="inputField" name="" id="txtCodProd">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="left">
+                        <label for="txtPrecProd">Preço do produto:</label>
+                        <input type="number" step=".01" class="inputField" name="precoProduto" id="txtPrecProd">
+                    </div>
+
+                    <div class="right">
+                        <label for="txtQuantEstoque">Quantidade em estoque:</label>
+                        <input type="number" class="inputField" name="" id="txtQuantEstoque">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <button type="button" id="btnCadastrar">Cadastrar</button>
+                </div>
+
+            </form>
+
+            <span id="spnErro" class="erro"></span>
+        </div>
+    </div>
+
+    <script src="../src/cadastro-produto.js"></script>
+</body>
+
+</html>

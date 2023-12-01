@@ -1,0 +1,48 @@
+label {
+    display: inline-block;
+    margin: 22px 0 0;
+}
+
+button {
+    width: 100%;
+}
+
+.box {
+     width: 300px;
+}
+
+.inputField {
+    width: 280px;
+}
+
+.row {
+    margin: 10px;
+    display:block;
+}
+
+
+/* este comando de estilo abaixo considera o tamanho da tela de laptop para cima, 
+de acordo com os tamanhos de tela que aparecem naquela faixa cinza do dev tools (2 classes: 
+768 pra cima (monitores de laptop e desktop) e 768 pra baixo (tablets e celulares)*/
+@media only screen and (min-width: 768px) {
+    .row {
+        display: flex;
+        margin: 18px 0;
+    }
+
+    .right {
+        margin: 0;
+    }
+
+    .left {
+        margin-right: 40px;
+    }
+    .box {
+        width: 720px;
+    }
+
+    .inputField {
+        width: 340px;
+    }
+
+}

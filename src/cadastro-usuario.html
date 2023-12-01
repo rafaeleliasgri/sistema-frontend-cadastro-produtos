@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Cadastro de Novo Usuário</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../src/cadastro-usuario.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="box">
+            <h1>Cadastro de Novo Usuário</h1>
+
+            <img src="../logo.png" height="100">
+
+            <p>Por favor, preencha os campos abaixo para se cadastrar.</p>
+
+            <form>
+
+                <div class="row">
+                    <div class="left">
+                        <label for="txtNome">Nome:</label>
+                        <input type="text" class="inputField" name="" id="txtNome">
+                    </div>
+
+                    <div class="right">
+                        <label for="txtSobrenome">Sobrenome:</label>
+                        <input type="text" class="inputField" name="" id="txtSobrenome">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="left">
+                        <label for="txtEmail">E-mail:</label>
+                        <input type="text" class="inputField" name="email" id="txtEmail">
+                    </div>
+
+                    <div class="right">
+                        <label for="txtTelefone">Telefone:</label>
+                        <input type="text" class="inputField" name="" id="txtTelefone">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="left">
+                        <label for="slcGenero">Gênero:</label>
+                        <Select id="slcGenero" class="inputField">
+                            <option value="Prefiro não Informar">Prefiro não Informar</option>
+                            <option value="Masculino">Masculino</option>
+                            <option value="Feminino">Feminino</option>
+                        </Select>
+                    </div>
+
+                    <div class="right">
+                        <label for="txtSenha">Senha:</label>
+                        <input type="password" class="inputField" name="" id="txtSenha">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <button type="button" id="btnCadastrar">Cadastrar</button>
+                </div>
+
+                <p>Já Possui Conta? <a href="../src/login.html">Faça Login</a></p>
+
+            </form>
+
+            <span id="spnErro" class="erro"></span>
+        </div>
+    </div>
+
+    <script src="../src/cadastro-usuario.js"></script>
+</body>
+
+</html>

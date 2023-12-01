@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>HOME</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../src/home.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="box">
+            <h1>HOME - Bem vindo(a)!</h1>
+
+            <h2>Sistema Programação do Zero</h2>
+
+            <img width="279" height="108" src="../logo.png">
+
+            <span id="spnMensagem"></span>
+
+            <br>
+
+            <button onclick="botao_click()" type="button" id="btnCadProd">Cadastrar Produto</button>
+
+            <a href="javascript:void(0)" id="lnkSair">Sair</a>
+
+            <script>
+
+                function botao_click() {
+
+                    window.location.href = "cadastro-produto.html";
+
+                }
+
+            </script>
+
+        </div>
+
+    </div>
+
+    <script src="../src/home.js"></script>
+
+</body>
+
+</html>

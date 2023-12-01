@@ -1,0 +1,67 @@
+label {
+    display: inline-block;
+    margin: 22px 0 0;
+}
+
+button {
+    width: 100%;
+}
+
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+}
+
+.esqueceuSenha {
+    float: right;
+    font-size: 13px;
+    font-style: italic;
+}
+
+.box {
+    width: 300px;
+}
+
+.inputField {
+    width: 300px;
+}
+
+.row {
+    margin: 10px;
+    display: block;
+}
+
+
+/* este comando de estilo abaixo considera o tamanho da tela de laptop para cima, 
+de acordo com os tamanhos de tela que aparecem naquela faixa cinza do dev tools (2 classes: 
+768 pra cima (monitores de laptop e desktop) e 768 pra baixo (tablets e celulares)*/
+@media only screen and (min-width: 768px) {
+    .row {
+        display: flex;
+        margin: 18px 0;
+    }
+
+
+    button {
+        width: 100%;
+    }
+
+    input[type="email"],
+    input[type="password"] {
+        width: 100%;
+    }
+
+    .esqueceuSenha {
+        float: right;
+        font-size: 13px;
+        font-style: italic;
+    }
+
+    .box {
+        width: 420px;
+    }
+
+    .inputField {
+        width: 420px;
+    }
+}
