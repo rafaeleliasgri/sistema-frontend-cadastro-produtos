@@ -13,6 +13,20 @@
 
 <body>
 
+    <nav class="topnav" id="menu">
+        <a href="../src/home.html" class="active">Home</a>
+        <a href="clientes.html">Clientes</a>
+        <a href="../src/cadastro-produto.html">Produtos</a>
+        <a href="pedidos.html">Pedidos</a>
+        <a href="javascript:void(0);" class="icon" id="menu">
+            <span>
+                <span class="line"></span>
+                <span class="line"></span>
+                <span class="line"></span>
+            </span>
+        </a>
+    </nav>
+
     <div class="container">
         <div class="box">
             <h1>HOME - Bem vindo(a)!</h1>
@@ -23,21 +37,7 @@
 
             <span id="spnMensagem"></span>
 
-            <br>
-
-            <button onclick="botao_click()" type="button" id="btnCadProd">Cadastrar Produto</button>
-
             <a href="javascript:void(0)" id="lnkSair">Sair</a>
-
-            <script>
-
-                function botao_click() {
-
-                    window.location.href = "cadastro-produto.html";
-
-                }
-
-            </script>
 
         </div>
 

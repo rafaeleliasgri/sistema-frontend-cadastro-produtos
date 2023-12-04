@@ -13,10 +13,21 @@ window.onload = function (e) {
 
     var lnkSair = document.getElementById("lnkSair");
 
-    lnkSair.onclick = function(e) {
+    lnkSair.onclick = function (e) {
         localStorage.removeItem("usuarioGuid");
 
         window.location.href = "login.html";
+    }
+
+    var menu = document.getElementById("menu");
+
+    menu.onclick = function (e) {
+        var x = document.getElementById("menu");
+        if (x.className === "topnav") {
+            x.className += " responsive";
+        } else {
+            x.className = "topnav";
+        }
     }
 
     function obterUsuario(usuarioGuid) {
