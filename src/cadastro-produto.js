@@ -1,100 +1,112 @@
 window.onload = function (e) {
 
-    var btnCadastrar = document.getElementById("btnCadastrar");
+    var usuarioGuid = localStorage.getItem("usuarioGuid");
 
-    var txtNomeProd = document.getElementById("txtNomeProd");
+    if (usuarioGuid == null) {
+        window.location.href = "login.html";
 
-    var txtCodProd = document.getElementById("txtCodProd");
+        alert("Ação não Permitida. Faça Login ou cadastre-se.");
+    }
+    else {
 
-    var txtPrecProd = document.getElementById("txtPrecProd");
+        var btnCadastrar = document.getElementById("btnCadastrar");
 
-    var txtQuantEstoque = document.getElementById("txtQuantEstoque");
+        var txtNomeProd = document.getElementById("txtNomeProd");
 
-    txtNomeProd.focus();
+        var txtCodProd = document.getElementById("txtCodProd");
 
-    btnCadastrar.onclick = function (e) {
+        var txtPrecProd = document.getElementById("txtPrecProd");
 
-        e.preventDefault();
+        var txtQuantEstoque = document.getElementById("txtQuantEstoque");
 
-        var nomeProd = txtNomeProd.value;
+        txtNomeProd.focus();
 
-        var codProd = txtCodProd.value;
+        btnCadastrar.onclick = function (e) {
 
-        var precProd = txtPrecProd.value;
+            e.preventDefault();
 
-        var quantEstoque = txtQuantEstoque.value;
+            var nomeProd = txtNomeProd.value;
 
-        if (nomeProd == "") {
-            exibirMensagemErro("Informe o nome do produto.");
+            var codProd = txtCodProd.value;
+
+            var precProd = txtPrecProd.value;
+
+            var quantEstoque = txtQuantEstoque.value;
+
+            if (nomeProd == "") {
+                exibirMensagemErro("Informe o nome do produto.");
+            }
+            else if (codProd == "") {
+                exibirMensagemErro("Informe o código do produto.");
+            }
+            else if (precProd == "") {
+                exibirMensagemErro("Informe o preço do produto.");
+            }
+            else if (quantEstoque == "") {
+                exibirMensagemErro("Informe a quantidade em estoque.");
+            }
+            else if (precProd <= 0) {
+                exibirMensagemErro("O preço do produto não pode ser 0 (zero) ou negativo.")
+            }
+            else if (quantEstoque <= 0) {
+                exibirMensagemErro("A quantidade em estoque não pode ser 0 (zero) ou negativa")
+            }
+            else {
+                cadastrarProd(nomeProd, codProd, precProd, quantEstoque);
+            }
+
+        };
+
+        function exibirMensagemErro(mensagem) {
+
+            var spnErro = document.getElementById("spnErro");
+
+            spnErro.innerText = mensagem;
+
+            spnErro.style.display = "block";
+
+            setTimeout(function () {
+                spnErro.style.display = "none";
+            }, 5000);
         }
-        else if (codProd == "") {
-            exibirMensagemErro("Informe o código do produto.");
-        }
-        else if (precProd == "") {
-            exibirMensagemErro("Informe o preço do produto.");
-        }
-        else if (quantEstoque == "") {
-            exibirMensagemErro("Informe a quantidade em estoque.");
-        }
-        else if (precProd <= 0) {
-            exibirMensagemErro("O preço do produto não pode ser 0 (zero) ou negativo.")
-        }
-        else if (quantEstoque <= 0) {
-            exibirMensagemErro("A quantidade em estoque não pode ser 0 (zero) ou negativa")
-        }
-        else {
-            cadastrarProd(nomeProd, codProd, precProd, quantEstoque);
-        }
 
-    };
+        function cadastrarProd(nomeProd, codProd, precProd, quantEstoque) {
 
-    function exibirMensagemErro(mensagem) {
+            // WARNING: For POST requests, body is set to null by browsers.
+            var data = JSON.stringify({
+                "nomeProd": nomeProd,
+                "codProd": codProd,
+                "precProd": precProd,
+                "quantEstoque": quantEstoque,
+            });
 
-        var spnErro = document.getElementById("spnErro");
+            var xhr = new XMLHttpRequest();
+            xhr.withCredentials = true;
 
-        spnErro.innerText = mensagem;
+            xhr.addEventListener("readystatechange", function () {
+                if (this.readyState === 4) {
 
-        spnErro.style.display = "block";
+                    var cadResul = JSON.parse(this.responseText);
 
-        setTimeout(function () {
-            spnErro.style.display = "none";
-        }, 5000);
+                    if (cadResul.sucesso) {
+                        localStorage.setItem("prodfGuid", cadResul.prodGuid);
+
+                        alert("Cadastro realizado com Sucesso!");
+
+                        window.location.href = "home.html";
+                    }
+                    else {
+                        exibirMensagemErro(cadResul.mensagem);
+                    }
+                }
+            });
+
+            xhr.open("POST", "https://localhost:7183/api/UsuarioController/CadastroProduto");
+            xhr.setRequestHeader("Content-Type", "application/json");
+
+            xhr.send(data);
+        };
+
     }
 
-    function cadastrarProd(nomeProd, codProd, precProd, quantEstoque) {
-
-        // WARNING: For POST requests, body is set to null by browsers.
-        var data = JSON.stringify({
-            "nomeProd": nomeProd,
-            "codProd": codProd,
-            "precProd": precProd,
-            "quantEstoque": quantEstoque,
-        });
-
-        var xhr = new XMLHttpRequest();
-        xhr.withCredentials = true;
-
-        xhr.addEventListener("readystatechange", function () {
-            if (this.readyState === 4) {
-
-                var cadResul = JSON.parse(this.responseText);
-
-                if (cadResul.sucesso) {
-                    localStorage.setItem("prodfGuid", cadResul.prodGuid);
-
-                    alert("Cadastro realizado com Sucesso!");
-
-                    window.location.href = "home.html";
-                }
-                else {
-                    exibirMensagemErro(cadResul.mensagem);
-                }
-            }
-        });
-
-        xhr.open("POST", "https://localhost:7183/api/UsuarioController/CadastroProduto");
-        xhr.setRequestHeader("Content-Type", "application/json");
-
-        xhr.send(data);
-    };
 }
