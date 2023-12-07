@@ -13,7 +13,6 @@ window.onload = function (e) {
     var usuarioGuid = localStorage.getItem("usuarioGuid");
 
     if (usuarioGuid == null) {
-
         window.location.href = "login.html";
 
         alert("Ação não Permitida. Faça Login ou cadastre-se.");
@@ -38,33 +37,26 @@ window.onload = function (e) {
             var quantidadeEstoque = txtQuantidadeEstoque.value;
 
             if (nomeProduto == "") {
-
                 exibirMensagemErro("Informe o nome do produto.");
             }
             else if (codigoProduto == "") {
-
                 exibirMensagemErro("Informe o código do produto.");
             }
             else if (precoProduto == "") {
-
                 exibirMensagemErro("Informe o preço do produto.");
             }
             else if (quantidadeEstoque == "") {
-
                 exibirMensagemErro("Informe a quantidade em estoque.");
             }
             else if (precoProduto <= 0) {
-
                 exibirMensagemErro("O preço do produto não pode ser 0 (zero) ou negativo.")
             }
             else if (quantidadeEstoque <= 0) {
-                
                 exibirMensagemErro("A quantidade em estoque não pode ser 0 (zero) ou negativa")
             }
             else {
                 cadastrarProd(nomeProduto, codigoProduto, precoProduto, quantidadeEstoque);
             }
-
         };
 
         function exibirMensagemErro(mensagem) {
@@ -94,11 +86,9 @@ window.onload = function (e) {
 
             xhr.addEventListener("readystatechange", function () {
                 if (this.readyState === 4) {
-
                     var cadastroProdutoResultado = JSON.parse(this.responseText);
 
                     if (cadastroProdutoResultado.sucesso) {
-
                         alert("Cadastro realizado com Sucesso!");
 
                         window.location.href = "home.html";
@@ -113,5 +103,19 @@ window.onload = function (e) {
             xhr.setRequestHeader("Content-Type", "application/json");
             xhr.send(data);
         };
+    }
+
+    var menu = document.getElementById("menu");
+
+    menu.onclick = function (e) {
+
+        var x = document.getElementById("menu");
+
+        if (x.className === "topnav") {
+            x.className += " responsive";
+        }
+        else {
+            x.className = "topnav";
+        }
     }
 }

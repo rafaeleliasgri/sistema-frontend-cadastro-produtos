@@ -17,7 +17,6 @@ window.onload = function (e) {
         var email = txtEmail.value;
 
         if (email == "") {
-
             exibirMensagemErro("Campo e-mail obrigatório");
         }
         else {
@@ -53,7 +52,6 @@ window.onload = function (e) {
                 var esqueceuSenhaResultado = JSON.parse(this.responseText);
 
                 if (esqueceuSenhaResultado.sucesso) {
-                    
                     alert("E-mail enviado com sucesso!");
                 }
                 else {

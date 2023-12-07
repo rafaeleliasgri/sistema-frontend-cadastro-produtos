@@ -18,11 +18,9 @@ window.onload = function (e) {
         var senha = txtSenha.value;
 
         if (email == "") {
-
             exibirMensagemErro("Campo e-mail obrigatório");
         }
         else if (senha == "") {
-
             exibirMensagemErro("Campo senha obrigatório");
         }
         else {
@@ -60,7 +58,6 @@ window.onload = function (e) {
                 var loginResultado = JSON.parse(this.responseText);
 
                 if (loginResultado.sucesso) {
-
                     localStorage.setItem("usuarioGuid", loginResultado.usuarioGuid);
                     
                     window.location.href = "home.html";

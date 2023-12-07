@@ -28,23 +28,18 @@ window.onload = function (e) {
         var senha = txtSenha.value;
 
         if (nome == "") {
-
             exibirMensagemErro("Informe o nome.");
         }
         else if (sobrenome == "") {
-
             exibirMensagemErro("Informe o sobrenome.");
         }
         else if (email == "") {
-
             exibirMensagemErro("Informe o E-mail.");
         }
         else if (telefone == "") {
-
             exibirMensagemErro("Informe o telefone.");
         }
         else if (senha == "") {
-            
             exibirMensagemErro("Digite uma senha.");
         }
         else {
@@ -84,7 +79,6 @@ window.onload = function (e) {
                 var cadastroResultado = JSON.parse(this.responseText);
 
                 if (cadastroResultado.sucesso) {
-
                     localStorage.setItem("usuarioGuid", cadastroResultado.usuarioGuid);
 
                     window.location.href = "home.html";
