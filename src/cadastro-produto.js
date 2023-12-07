@@ -1,83 +1,92 @@
+/* Este código faz:
+1. Validação de usuário logado impedindo que se consiga acessar 
+a página de Cadastro de Produto sem passar pelas páginas de login ou cadastro de
+novo usuário.
+2. Validação do preenchimento dos campos, envia dados formato JSON
+para a API e recebe a resposta da API. Se o produto já existe, retorna a mensagem
+de erro, com a resposta enviada pela API. Se o produto não existe e foi
+corretamente cadastrado (dados inseridos pela API na tabela MySQL-Server), então
+uma mensagem de confirmação é exibida e a página é redirecionada à Home.*/
+
 window.onload = function (e) {
 
     var usuarioGuid = localStorage.getItem("usuarioGuid");
 
     if (usuarioGuid == null) {
+
         window.location.href = "login.html";
 
         alert("Ação não Permitida. Faça Login ou cadastre-se.");
     }
     else {
 
-        var btnCadastrar = document.getElementById("btnCadastrar");
+        var buttonCadastrar = document.getElementById("buttonCadastrar");
+        var txtNomeProduto = document.getElementById("txtNomeProduto");
+        var txtCodigoProduto = document.getElementById("txtCodigoProduto");
+        var txtPrecoProduto = document.getElementById("txtPrecoProduto");
+        var txtQuantidadeEstoque = document.getElementById("txtQuantidadeEstoque");
 
-        var txtNomeProd = document.getElementById("txtNomeProd");
+        txtNomeProduto.focus();
 
-        var txtCodProd = document.getElementById("txtCodProd");
-
-        var txtPrecProd = document.getElementById("txtPrecProd");
-
-        var txtQuantEstoque = document.getElementById("txtQuantEstoque");
-
-        txtNomeProd.focus();
-
-        btnCadastrar.onclick = function (e) {
+        buttonCadastrar.onclick = function (e) {
 
             e.preventDefault();
 
-            var nomeProd = txtNomeProd.value;
+            var nomeProduto = txtNomeProduto.value;
+            var codigoProduto = txtCodigoProduto.value;
+            var precoProduto = txtPrecoProduto.value;
+            var quantidadeEstoque = txtQuantidadeEstoque.value;
 
-            var codProd = txtCodProd.value;
+            if (nomeProduto == "") {
 
-            var precProd = txtPrecProd.value;
-
-            var quantEstoque = txtQuantEstoque.value;
-
-            if (nomeProd == "") {
                 exibirMensagemErro("Informe o nome do produto.");
             }
-            else if (codProd == "") {
+            else if (codigoProduto == "") {
+
                 exibirMensagemErro("Informe o código do produto.");
             }
-            else if (precProd == "") {
+            else if (precoProduto == "") {
+
                 exibirMensagemErro("Informe o preço do produto.");
             }
-            else if (quantEstoque == "") {
+            else if (quantidadeEstoque == "") {
+
                 exibirMensagemErro("Informe a quantidade em estoque.");
             }
-            else if (precProd <= 0) {
+            else if (precoProduto <= 0) {
+
                 exibirMensagemErro("O preço do produto não pode ser 0 (zero) ou negativo.")
             }
-            else if (quantEstoque <= 0) {
+            else if (quantidadeEstoque <= 0) {
+                
                 exibirMensagemErro("A quantidade em estoque não pode ser 0 (zero) ou negativa")
             }
             else {
-                cadastrarProd(nomeProd, codProd, precProd, quantEstoque);
+                cadastrarProd(nomeProduto, codigoProduto, precoProduto, quantidadeEstoque);
             }
 
         };
 
         function exibirMensagemErro(mensagem) {
 
-            var spnErro = document.getElementById("spnErro");
+            var spanErro = document.getElementById("spanErro");
 
-            spnErro.innerText = mensagem;
+            spanErro.innerText = mensagem;
 
-            spnErro.style.display = "block";
+            spanErro.style.display = "block";
 
             setTimeout(function () {
-                spnErro.style.display = "none";
+                spanErro.style.display = "none";
             }, 5000);
         }
 
-        function cadastrarProd(nomeProd, codProd, precProd, quantEstoque) {
+        function cadastrarProd(nomeProduto, codigoProduto, precoProduto, quantidadeEstoque) {
 
-            // WARNING: For POST requests, body is set to null by browsers.
             var data = JSON.stringify({
-                "nomeProd": nomeProd,
-                "codProd": codProd,
-                "precProd": precProd,
-                "quantEstoque": quantEstoque,
+                "nomeProduto": nomeProduto,
+                "codigoProduto": codigoProduto,
+                "precoProduto": precoProduto,
+                "quantidadeEstoque": quantidadeEstoque,
             });
 
             var xhr = new XMLHttpRequest();
@@ -86,27 +95,23 @@ window.onload = function (e) {
             xhr.addEventListener("readystatechange", function () {
                 if (this.readyState === 4) {
 
-                    var cadResul = JSON.parse(this.responseText);
+                    var cadastroProdutoResultado = JSON.parse(this.responseText);
 
-                    if (cadResul.sucesso) {
-                        localStorage.setItem("prodfGuid", cadResul.prodGuid);
+                    if (cadastroProdutoResultado.sucesso) {
 
                         alert("Cadastro realizado com Sucesso!");
 
                         window.location.href = "home.html";
                     }
                     else {
-                        exibirMensagemErro(cadResul.mensagem);
+                        exibirMensagemErro(cadastroProdutoResultado.mensagem);
                     }
                 }
             });
 
             xhr.open("POST", "https://localhost:7183/api/UsuarioController/CadastroProduto");
             xhr.setRequestHeader("Content-Type", "application/json");
-
             xhr.send(data);
         };
-
     }
-
 }

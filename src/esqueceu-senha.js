@@ -1,44 +1,45 @@
+/* Este código faz validação do preenchimento dos campos, envia dados formato JSON
+para a API e recebe a resposta da API. Se o novo usuário não existe, retorna a mensagem
+de erro, com a resposta enviada pela API. Se o novo usuário já existe (o e-mail de recuperação
+de senha foi enviado pela API) exibe mensagem confirmando o sucesso do envio. */
+
 window.onload = function (e) {
 
-    var btnRecSenha = document.getElementById("btnRecSenha");
-
+    var buttonRecuperarSenha = document.getElementById("buttonRecuperarSenha");
     var txtEmail = document.getElementById("txtEmail");
 
     txtEmail.focus();
 
-    //* Sempre que há definição de função, deve haver o ponto e vírgula no fina, após a chave *//
-    btnRecSenha.onclick = function (e) {
+    buttonRecuperarSenha.onclick = function (e) {
 
-        //* O comando abaixo impede que a página se autoatualize ao se clicar no botão, pelo fato
-        //*dos elementos se encontrarem dentro de um "form" do html.// 
         e.preventDefault();
 
         var email = txtEmail.value;
 
         if (email == "") {
+
             exibirMensagemErro("Campo e-mail obrigatório");
         }
         else {
             recuperarSenha(email);
         }
-
     };
 
     function exibirMensagemErro(mensagem) {
-        var spnErro = document.getElementById("spnErro");
+        
+        var spanErro = document.getElementById("spanErro");
 
-        spnErro.style.display = "block";
+        spanErro.style.display = "block";
 
-        spnErro.innerText = mensagem;
+        spanErro.innerText = mensagem;
 
         setTimeout(function () {
-            spnErro.style.display = "none";
+            spanErro.style.display = "none";
         }, 5000);
     };
 
     function recuperarSenha(email) {
 
-        // WARNING: For POST requests, body is set to null by browsers.
         var data = JSON.stringify({
             "email": email
         });
@@ -49,22 +50,20 @@ window.onload = function (e) {
         xhr.addEventListener("readystatechange", function () {
             if (this.readyState === 4) {
 
-                var esqSenhResul = JSON.parse(this.responseText);
+                var esqueceuSenhaResultado = JSON.parse(this.responseText);
 
-                if (esqSenhResul.sucesso) {
+                if (esqueceuSenhaResultado.sucesso) {
+                    
                     alert("E-mail enviado com sucesso!");
                 }
                 else {
-                    exibirMensagemErro(esqSenhResul.mensagem);
+                    exibirMensagemErro(esqueceuSenhaResultado.mensagem);
                 }
             }
         });
 
         xhr.open("POST", "https://localhost:7183/api/UsuarioController/EsqueceuSenha");
         xhr.setRequestHeader("Content-Type", "application/json");
-
         xhr.send(data);
-
     };
-
 }

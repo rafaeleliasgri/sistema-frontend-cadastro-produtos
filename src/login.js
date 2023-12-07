@@ -1,52 +1,51 @@
+/* Este código faz validação do preenchimento dos campos, envia dados formato JSON
+para a API, recebe a resposta da API e loga o usuário (enviando-o à página Home) ou exibe 
+mensagem de erro enviada pela API */ 
+
 window.onload = function (e) {
 
-    var btnLogin = document.getElementById("btnLogin");
-
+    var buttonLogin = document.getElementById("buttonLogin");
     var txtEmail = document.getElementById("txtEmail");
-
     var txtSenha = document.getElementById("txtSenha");
 
     txtEmail.focus();
 
-    //* Sempre que há definição de função, deve haver o ponto e vírgula no fina, após a chave *//
-    btnLogin.onclick = function (e) {
+    buttonLogin.onclick = function (e) {
 
-        //* O comando abaixo impede que a página se autoatualize ao se clicar no botão, pelo fato
-        //*dos elementos se encontrarem dentro de um "form" do html.// 
         e.preventDefault();
 
         var email = txtEmail.value;
-
         var senha = txtSenha.value;
 
         if (email == "") {
+
             exibirMensagemErro("Campo e-mail obrigatório");
         }
         else if (senha == "") {
+
             exibirMensagemErro("Campo senha obrigatório");
         }
         else {
             realizarLogin(email, senha);
         }
-
     };
 
     function exibirMensagemErro(mensagem) {
-        var spnErro = document.getElementById("spnErro");
 
-        spnErro.style.display = "block";
+        var spanErro = document.getElementById("spanErro");
 
-        spnErro.innerText = mensagem;
+        spanErro.style.display = "block";
+        spanErro.innerText = mensagem;
 
         setTimeout(function () {
-            spnErro.style.display = "none";
+            spanErro.style.display = "none";
         }, 5000);
     };
 
     function realizarLogin(email, senha) {
 
-        // WARNING: For POST requests, body is set to null by browsers.
         var data = JSON.stringify({
+
             "email": email,
             "senha": senha
         });
@@ -55,28 +54,25 @@ window.onload = function (e) {
         xhr.withCredentials = true;
 
         xhr.addEventListener("readystatechange", function () {
+
             if (this.readyState === 4) {
-                
-                var loginResul = JSON.parse(this.responseText);
 
-                if (loginResul.sucesso) {
-                    //Sucesso
-                    localStorage.setItem("usuarioGuid", loginResul.usuarioGuid);
+                var loginResultado = JSON.parse(this.responseText);
 
+                if (loginResultado.sucesso) {
+
+                    localStorage.setItem("usuarioGuid", loginResultado.usuarioGuid);
+                    
                     window.location.href = "home.html";
                 }
-                else
-                {
-                    exibirMensagemErro(loginResul.mensagem);
+                else {
+                    exibirMensagemErro(loginResultado.mensagem);
                 }
             }
         });
 
         xhr.open("POST", "https://localhost:7183/api/UsuarioController/Login");
         xhr.setRequestHeader("Content-Type", "application/json");
-
         xhr.send(data);
-
     };
-
 }

@@ -1,3 +1,7 @@
+/* Este código faz validação do de usuário logado impedindo que se consiga acessar 
+a página Home sem passar pelas páginas de login ou cadastro de novo usuário. Também
+adiciona a uma mensagem de boas vindas o usuário cadastrado e logado vinda da API. */
+
 window.onload = function (e) {
 
     var usuarioGuid = localStorage.getItem("usuarioGuid");
@@ -11,9 +15,9 @@ window.onload = function (e) {
         obterUsuario(usuarioGuid);
     }
 
-    var lnkSair = document.getElementById("lnkSair");
+    var linkSair = document.getElementById("linkSair");
 
-    lnkSair.onclick = function (e) {
+    linkSair.onclick = function (e) {
         localStorage.removeItem("usuarioGuid");
 
         window.location.href = "login.html";
@@ -22,16 +26,18 @@ window.onload = function (e) {
     var menu = document.getElementById("menu");
 
     menu.onclick = function (e) {
+
         var x = document.getElementById("menu");
+
         if (x.className === "topnav") {
             x.className += " responsive";
-        } else {
+        }
+        else {
             x.className = "topnav";
         }
     }
 
     function obterUsuario(usuarioGuid) {
-        // WARNING: For GET requests, body is set to null by browsers.
 
         var xhr = new XMLHttpRequest();
         xhr.withCredentials = true;
@@ -39,12 +45,12 @@ window.onload = function (e) {
         xhr.addEventListener("readystatechange", function () {
             if (this.readyState === 4) {
 
-                var homeResult = JSON.parse(this.responseText);
-                if (homeResult.sucesso) {
-                    //Sucesso
-                    var spnMensagem = document.getElementById("spnMensagem");
+                var homeResultado = JSON.parse(this.responseText);
 
-                    spnMensagem.innerText = "Bem vindo(a) ao sistema " + homeResult.nome + "!";
+                if (homeResultado.sucesso) {
+                    var spanMensagem = document.getElementById("spanMensagem");
+
+                    spanMensagem.innerText = "Bem vindo(a) ao sistema " + homeResultado.nome + "!";
                 }
                 else {
                     window.location.href = "home.html";
@@ -53,8 +59,6 @@ window.onload = function (e) {
         });
 
         xhr.open("GET", "https://localhost:7183/api/UsuarioController/obterusuario?usuarioGuid=" + usuarioGuid);
-
         xhr.send();
-
     }
 }

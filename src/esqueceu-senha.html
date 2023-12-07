@@ -1,10 +1,14 @@
 <!DOCTYPE html>
-<html>
+
+<html lang="pt-br">
 
 <head>
     <title>Recuperar Senha</title>
+
+    <meta name="robots" content="noindex,nofollow">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <link rel="icon" type="image/x-icon" href="../favicon.ico">
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="../src/esqueceu-senha.css">
@@ -13,30 +17,31 @@
 <body>
 
     <div class="container">
+
         <div class="box">
+
             <h1>Recuperar Senha</h1>
 
-            <img src="../logo.png" height="100">
+            <img src="../logo.png" height="108" width="279">
 
             <form>
 
                 <label for="txtEmail">E-mail:</label>
                 <input type="email" class="inputField" name="" id="txtEmail">
 
-                <button type="button" id="btnRecSenha">Recuperar Senha</button>
-
-                <span id="spnErro" class="erro">
-
-                </span>
-
-                <p>Já Possui Conta? <a href="../src/login.html">Faça Login</a></p>
+                <button type="button" id="buttonRecuperarSenha">Recuperar Senha</button>
 
             </form>
+
+            <span id="spanErro" class="erro"></span>
+
+            <p>Já Possui Conta? <a href="../src/login.html">Faça Login</a></p>
+
         </div>
     </div>
-    <script src="../src/esqueceu-senha.js">
 
-    </script>
+    <script src="../src/esqueceu-senha.js"></script>
+
 </body>
 
 </html>

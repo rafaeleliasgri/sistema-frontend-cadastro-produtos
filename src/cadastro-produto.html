@@ -1,8 +1,11 @@
 <!DOCTYPE html>
-<html>
+
+<html lang="pt-br">
 
 <head>
-    <title>Cadastro de Produtos</title>
+    <title>Cadastro de Produto</title>
+
+    <meta name="robots" content="noindex,nofollow">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
@@ -14,10 +17,12 @@
 <body>
 
     <div class="container">
-        <div class="box">
-            <h1>Cadastro de Produtos</h1>
 
-            <img src="../logo.png" height="100">
+        <div class="box">
+
+            <h1>Cadastro de Produto</h1>
+
+            <img src="../logo.png" height="108" width="279">
 
             <p>Por favor, prencha os campos abaixo para cadastrar o produto.</p>
 
@@ -25,41 +30,43 @@
 
                 <div class="row">
                     <div class="left">
-                        <label for="txtNomeProd">Nome do produto:</label>
-                        <input type="text" class="inputField" name="" id="txtNomeProd">
+                        <label for="txtNomeProduto">Nome do produto:</label>
+                        <input type="text" class="inputField" name="" id="txtNomeProduto">
                     </div>
 
                     <div class="right">
-                        <label for="txtCodProd">Código do produto:</label>
-                        <input type="text" class="inputField" name="" id="txtCodProd">
+                        <label for="txtCodigoProduto">Código do produto:</label>
+                        <input type="text" class="inputField" name="" id="txtCodigoProduto">
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="left">
-                        <label for="txtPrecProd">Preço do produto:</label>
-                        <input type="number" step=".01" class="inputField" name="precoProduto" id="txtPrecProd">
+                        <label for="txtPrecoProduto">Preço do produto:</label>
+                        <input type="number" step=".01" class="inputField" name="precoProduto" id="txtPrecoProduto">
                     </div>
 
                     <div class="right">
-                        <label for="txtQuantEstoque">Quantidade em estoque:</label>
-                        <input type="number" class="inputField" name="" id="txtQuantEstoque">
+                        <label for="txtQuantidadeEstoque">Quantidade em estoque:</label>
+                        <input type="number" class="inputField" name="" id="txtQuantidadeEstoque">
                     </div>
                 </div>
 
                 <div class="row">
-                    <button type="button" id="btnCadastrar">Cadastrar</button>
+                    <button type="button" id="buttonCadastrar">Cadastrar</button>
                 </div>
-
-                <a href="../src/home.html">Voltar</a>
 
             </form>
 
-            <span id="spnErro" class="erro"></span>
+            <a href="../src/home.html">Voltar</a>
+
+            <span id="spanErro" class="erro"></span>
+
         </div>
     </div>
 
     <script src="../src/cadastro-produto.js"></script>
+
 </body>
 
 </html>
