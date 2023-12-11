@@ -99,7 +99,7 @@ window.onload = function (e) {
                 }
             });
 
-            xhr.open("POST", "https://localhost:7183/api/UsuarioController/CadastroProduto");
+            xhr.open("POST", "https://localhost:7183/api/ProdutoController/CadastroProduto");
             xhr.setRequestHeader("Content-Type", "application/json");
             xhr.send(data);
         };
